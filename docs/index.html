@@ -48,5 +48,6 @@ async function sendAnswers(){
  finally{button.disabled=false}
 }
 function clearAnswers(){if(confirm('Clear your answers and start again?')){localStorage.removeItem('englishStartingPoint');location.reload()}}
+document.addEventListener('input',()=>{localStorage.setItem('englishStartingPoint',JSON.stringify(getData()));document.getElementById('status').textContent='Changes saved on this device.'});document.addEventListener('change',()=>localStorage.setItem('englishStartingPoint',JSON.stringify(getData())));
 const saved=localStorage.getItem('englishStartingPoint');if(saved){try{const d=JSON.parse(saved);document.getElementById('studentName').value=d.name||'';document.getElementById('studentDate').value=d.date||'';d.skills?.forEach((v,i)=>{const x=document.querySelector(`input[name="skill${i}"][value="${v}"]`);if(x)x.checked=true});d.goals?.forEach(v=>{const x=[...document.querySelectorAll('#goals input')].find(y=>y.value===v);if(x)x.checked=true});document.getElementById('otherGoal').value=d.otherGoal||'';const c=document.querySelector(`#confidence input[value="${d.confidence}"]`);if(c)c.checked=true;d.difficulties?.forEach(v=>{const x=[...document.querySelectorAll('#difficulties input')].find(y=>y.value===v);if(x)x.checked=true});document.getElementById('nextStep').value=d.nextStep||''}catch(e){}}
 </script></body></html>
